@@ -28,10 +28,21 @@ var zone = sequelize.define('zone', {
 	category: { 
 		type: Sequelize.TEXT,
 		set(category) {
-			this.setDataValue('category', category.join(","));
+			if(category !== null){
+				this.setDataValue('category', category.join(","));
+			}
+			else {
+				this.setDataValue('category',null);
+			}
 		},
 		get() {
-			return this.getDataValue('category').split(',')
+			let category = this.getDataValue('category') 
+			if (category !== null && category !==undefined){
+				return category.split(',') 
+			}
+			else {
+				return []
+			}
 		}	
 	},
 	location:{

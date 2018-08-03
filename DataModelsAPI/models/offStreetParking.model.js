@@ -2,7 +2,7 @@
 const Sequelize = require('sequelize');
 
 var sequelize = require('../db/sequelize');
-var Zone = require('../models/zone.model')
+var Zone = require('./zone.model');
 var locations = require('./functions/locations')
 
 var parking = sequelize.define('offStreetParking', {
@@ -42,12 +42,12 @@ var parking = sequelize.define('offStreetParking', {
     },
     areaServed:{
         type: Sequelize.STRING(100),
-        references: {
+        //references: {
 			// This is a reference to another model
-			model: Zone,
+		//	model: Zone,
 			// This is the column name of the referenced model
-			key: 'idZone',
-		},
+		//	key: 'idZone',
+		//},
 		allowNull: false,
     },
 	dateCreated: { 

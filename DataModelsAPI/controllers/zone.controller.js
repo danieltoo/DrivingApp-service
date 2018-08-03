@@ -21,6 +21,7 @@ exports.add = async function (req, res){
 	if (!isEmpty(body)) {
 		zone.create(body)
 		.then((result)=> {
+
 			var data  = result.get({
 				plain: true
 			})
@@ -44,6 +45,7 @@ exports.add = async function (req, res){
 					res.status(400).json({message: "An error has ocurred to send the entity to ContextBroker"});
 				}
 			})
+
 		})
 		.catch(err => {
 			res.status(400).json(err)

@@ -14,5 +14,7 @@ app.route('/user/:id')
     .delete(controller.delete)
 app.route('/user/login')
     .post(controller.keyLogin)
+app.route('/guard/login')
+    .post(controller.keyGuardLogin)
 
 module.exports = app;
