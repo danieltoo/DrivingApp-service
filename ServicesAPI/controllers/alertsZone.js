@@ -10,7 +10,6 @@ var context = require('../../config/config').context
 
 exports.getHistory = async function (req,res) {
 	console.log(req.query.id)
-
     await Zone.findOne({where : { 'idZone': req.params.idZone }})
     .then( async (zone) => {
 	  	if (zone != null){
@@ -130,7 +129,6 @@ exports.getCurrent = async function (req,res) {
 
 
 exports.getCurrentHour = async function (req,res) {
-	console.log("CURRENT HOUR ---------------")
     await Zone.findOne({where : { 'idZone': req.params.idZone }})
     .then( async (zone) => {
 	  	if (zone != null){
@@ -143,7 +141,7 @@ exports.getCurrentHour = async function (req,res) {
 				dtLocal.minute
 			)
 
-			let midnight = date.minus({ hours : 1 }).endOf("minutes");
+			let lastHour = date.minus({ hours : 1 }).endOf("minutes");
 
 			let jsonQuery = {
 				type : "Alert",
@@ -151,7 +149,7 @@ exports.getCurrentHour = async function (req,res) {
 				//georel :"coveredBy",
 				//geometry:"polygon",
 				//coords : zone.location,
-				dateObserved: `>=${midnight}`
+				dateObserved: `>=${lastHour}`
 			}
 
 			if(req.query.id != undefined)

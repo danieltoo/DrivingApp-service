@@ -6,6 +6,7 @@ exports.query = async function (req,res) {
     let query = ngsi.createQuery(req.body);
     await cb.getWithQuery(query)
     .then((result) => {
+        res.set(result.headers)
         res.status(200).json(result.body);
     })
     .catch((error) =>{
