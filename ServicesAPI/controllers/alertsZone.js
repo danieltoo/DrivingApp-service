@@ -45,6 +45,7 @@ exports.getHistory = async function (req,res) {
 				console.log(query)
 				await cb.getWithQuery(query)
 				.then((result) => {
+					res.set("fiware-total-count", off)
 					res.status(200).json(result.body.reverse())
 				})
 				.catch((error) =>{
