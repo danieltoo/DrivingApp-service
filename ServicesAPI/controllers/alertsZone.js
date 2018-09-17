@@ -72,9 +72,9 @@ exports.getCurrent = async function (req,res) {
 			let jsonQuery = {
 				type : "Alert",
 				options : "count",
-				//georel :"coveredBy",
-				//geometry:"polygon",
-				//coords : zone.location,
+				georel :"coveredBy",
+				geometry:"polygon",
+				coords : zone.location,
 				dateObserved: `>=${midnight}`
 			}
 
@@ -92,9 +92,9 @@ exports.getCurrent = async function (req,res) {
 				let jsonQuery2 = {
 					type : "Alert",
 					options : "keyValues",
-					//georel :"coveredBy",
-					//geometry:"polygon",
-					//coords : zone.location,
+					georel :"coveredBy",
+					geometry:"polygon",
+					coords : zone.location,
 					dateObserved: `>=${midnight}`,
 					limit : 10
 				}
@@ -102,8 +102,12 @@ exports.getCurrent = async function (req,res) {
 				if(req.query.id != undefined)
 					jsonQuery2["id"] = req.query.id
 
-				if(count > 20)
+				if(count >= 20)
 					jsonQuery2["offset"] = count - 10;
+		    		if(count < 20)
+					jsonQuery2["limit"] = count;
+		    		console.log(count)
+		    		console.log(jsonQuery2["offset"])
 
 				let query = ngsi.createQuery(jsonQuery2);
 

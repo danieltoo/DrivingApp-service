@@ -4,7 +4,7 @@ var ngsi = require('ngsi-parser')
 
 exports.query = async function (req,res) {    
     let query = ngsi.createQuery(req.body);
-    console.log(req.body)
+	console.log(req.body)
     await cb.getWithQuery(query)
     .then((result) => {
         //res.set(result["headers"]["_headers"])
@@ -16,7 +16,7 @@ exports.query = async function (req,res) {
         res.status(200).json(result.body);
     })
     .catch((error) =>{
-        res.status(500).send(error.message);
+        res.status(req.status).send(error);
     })
 } 
 
