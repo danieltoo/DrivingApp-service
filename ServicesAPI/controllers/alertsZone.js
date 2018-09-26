@@ -49,11 +49,11 @@ exports.getHistory = async function (req,res) {
 					res.status(200).json(result.body.reverse())
 				})
 				.catch((error) =>{
-					res.status(500).send("eeror 1");
+					res.status(500).send(error);
                 })
 			})
 			.catch((error) =>{
-				res.status(500).send("error");
+				res.status(500).send(error);
 			})
 				
 	  	}  	
