@@ -1,0 +1,10 @@
+exports.keyrock = "KEYROCK-HOST"
+//Remote database
+exports.mysql = {
+  host : 'MYSQL-HOST',
+  db : 'DATABASE-NAME',
+  user : 'USER',
+  password : 'PASSWORD'
+}
+exports.context = 'ORION-HOST';
+exports.crate = 'CRATEDB-HOST';

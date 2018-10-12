@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 var mysql = require('../../config/config').mysql
 
-console.log(mysql)
+
 module.exports = new Sequelize(mysql.db, mysql.user, mysql.password, {
     host: mysql.host,
     dialect: 'mysql',

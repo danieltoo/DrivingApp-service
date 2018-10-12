@@ -1,8 +1,8 @@
 'use strict';
 
-var parking = require('../models/offStreetParking.model')
-var context = require("./functions/context")
-
+var parking = require('../models/offStreetParking.model');
+var context = require("./functions/context");
+var triggers = require("./functions/triggers");
 function isEmpty (object) {
     if (object == undefined ) return true;
     if (object == null) return true;
@@ -78,6 +78,7 @@ exports.delete = function(req, res){
 	})
 	.then((result) => {
 		if(result[0] > 0){
+			triggers.afterDeleteParking(req.params.idParking);
 			res.status(200).json(result);
 		}
 		else {

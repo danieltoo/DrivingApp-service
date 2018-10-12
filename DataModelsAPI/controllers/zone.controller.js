@@ -1,8 +1,9 @@
 'use strict';
 
-
 var zone = require('../models/zone.model')
 var context = require("./functions/context")
+var triggers = require("./functions/triggers")
+
 
 function isEmpty (object) {
     if (object == undefined ) return true;
@@ -21,7 +22,6 @@ exports.add = async function (req, res){
 	if (!isEmpty(body)) {
 		zone.create(body)
 		.then((result)=> {
-
 			var data  = result.get({
 				plain: true
 			})
@@ -45,6 +45,7 @@ exports.add = async function (req, res){
 					res.status(400).json({message: "An error has ocurred to send the entity to ContextBroker"});
 				}
 			})
+			res.status(201).json(data);
 
 		})
 		.catch(err => {
@@ -90,6 +91,7 @@ exports.delete = function(req, res){
 	})
 	.then((result) => {
 		if(result[0] > 0){
+			triggers.afterDeleteZone(req.params.idZone);
 			res.status(200).json(result);
 		}
 		else {
@@ -100,7 +102,16 @@ exports.delete = function(req, res){
 
 exports.getAll = function(req,res){
 	zone.findAll({ where: req.query}).then(result => {
-		res.status(200).json(result);
+		var temp = [];
+		result.map((zone) =>{
+			let json = zone.get({
+				plain: true
+			})
+			json["name"] = json["owner"];
+			json["refBuildingType"] = "Zone";
+			temp.push(json)
+		})
+		res.status(200).json(temp);
 	})
 }
 
@@ -110,6 +121,8 @@ exports.getById = function (req, res){
 			let json = result.get({
 				plain: true
 			})
+			json["name"] = json["owner"];
+			json["refBuildingType"] = "Zone";
 			res.status(200).json(json);
 		}
 		else{

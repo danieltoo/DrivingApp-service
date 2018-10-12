@@ -25,7 +25,8 @@ var roadSegment = sequelize.define('roadSegment', {
 			this.setDataValue('location', location.join(";"));
 		},
 		get() {
-			return locations.getPoly(this.getDataValue('location'))
+			if (this.getDataValue('location') != undefined)
+				return locations.getPoly(this.getDataValue('location'))
 		}
     },
     refRoad:{
@@ -39,7 +40,8 @@ var roadSegment = sequelize.define('roadSegment', {
 			this.setDataValue('startPoint', start.join(","));
 		},
 		get() {
-			return locations.getPoint(this.getDataValue('startPoint'))
+			if (this.getDataValue('startPoint') != undefined)
+				return locations.getPoint(this.getDataValue('startPoint'))
 		}
     },
     endPoint:{
@@ -49,6 +51,7 @@ var roadSegment = sequelize.define('roadSegment', {
 			this.setDataValue('endPoint', end.join(","));
 		},
 		get() {
+			if (this.getDataValue('endPoint') != undefined)
 			return locations.getPoint(this.getDataValue('endPoint'))
 		}
     },

@@ -4,6 +4,8 @@ var cb = require('ocb-sender')
 var ngsi = require('ngsi-parser')
 var fetch = require('node-fetch')
 const { DateTime } = require('luxon');
+var moment  = require('moment-timezone')
+
 var context = require('../../config/config').context
 
 exports.getHistory = async function (req,res) {
@@ -15,28 +17,24 @@ exports.getHistory = async function (req,res) {
 			let jsonQuery = {
 				type : "Alert",
 				options : "count",
-				//georel :"coveredBy",
-				//geometry:"polygon",
-				//coords : zone.location
+				georel :"coveredBy",
+				geometry:"polygon",
+				coords : zone.location
 			}
 			if(req.query.id != undefined)
 				jsonQuery["id"] = req.query.id
 			let queryToCount = ngsi.createQuery(jsonQuery);
-            await fetch(`${context.host}:${context.port}/${context.v}/entities${queryToCount}`, {
-                method: 'GET',
-                headers: {
-                    'Access-Control-Allow-Methods':'GET, POST, OPTIONS, PUT, PATCH, DELETE'
-                },
-			})
+
+            await cb.getWithQuery(queryToCount)
 			.then(async (response) => {
-				let off = Number(response["headers"]["_headers"]["fiware-total-count"][0])  
+				let off = Number(response["headers"]["_headers"]["fiware-total-count"][0])
 				let params  = {
 					type : "Alert",
 					options : "keyValues",
-					//georel :"coveredBy",
-					//geometry:"polygon",
-					//coords : zone.location,
-					limit : "10",
+					georel :"coveredBy",
+					geometry:"polygon",
+					coords : zone.location,
+					limit : 10,
 				}
 				if(req.query.id != undefined)
 					params["id"] = req.query.id
@@ -44,12 +42,11 @@ exports.getHistory = async function (req,res) {
 				if (off > 10){
 					params.offset = off - 10
 				}
-                let query = ngsi.createQuery(params);
+				let query = ngsi.createQuery(params);
 				console.log(query)
-				
 				await cb.getWithQuery(query)
 				.then((result) => {
-					res.status(200).json(result.reverse())
+					res.status(200).json(result.body.reverse())
 				})
 				.catch((error) =>{
 					res.status(500).send("eeror 1");
@@ -75,28 +72,103 @@ exports.getCurrent = async function (req,res) {
 			let jsonQuery = {
 				type : "Alert",
 				options : "count",
+				georel :"coveredBy",
+				geometry:"polygon",
+				coords : zone.location,
+				dateObserved: `>=${midnight}`
+			}
+
+			if(req.query.id != undefined)
+				jsonQuery["id"] = req.query.id
+
+			let queryToCount = ngsi.createQuery(jsonQuery);
+			console.log(queryToCount)
+
+            await cb.getWithQuery(queryToCount)
+			.then(async (response) => {
+
+				let count = Number(response["headers"]["_headers"]["fiware-total-count"][0])  
+				
+				let jsonQuery2 = {
+					type : "Alert",
+					options : "keyValues",
+					georel :"coveredBy",
+					geometry:"polygon",
+					coords : zone.location,
+					dateObserved: `>=${midnight}`,
+					limit : 10
+				}
+				
+				if(req.query.id != undefined)
+					jsonQuery2["id"] = req.query.id
+
+				if(count >= 20)
+					jsonQuery2["offset"] = count - 10;
+		    		if(count < 20)
+					jsonQuery2["limit"] = count;
+		    		console.log(count)
+		    		console.log(jsonQuery2["offset"])
+
+				let query = ngsi.createQuery(jsonQuery2);
+
+				console.log(query)
+				await cb.getWithQuery(query)
+				.then((result) => {
+					
+					res.status(200).json(result.body.reverse())
+					
+				})
+				.catch((error) =>{
+					res.status(error.status).send(error);
+				})
+				
+			})
+			.catch((error) =>{
+				console.log("segundo")
+				res.status(500).send(error);
+			})
+				
+	  	}  	
+	});
+} 
+
+
+exports.getCurrentHour = async function (req,res) {
+	console.log("CURRENT HOUR ---------------")
+    await Zone.findOne({where : { 'idZone': req.params.idZone }})
+    .then( async (zone) => {
+	  	if (zone != null){
+			var dtLocal = DateTime.local().setZone('America/Mexico_City');
+			var date = DateTime.utc(
+				dtLocal.year,
+				dtLocal.month,
+				dtLocal.day,
+				dtLocal.hour,
+				dtLocal.minute
+			)
+
+			let midnight = date.minus({ hours : 1 }).endOf("minutes");
+
+			let jsonQuery = {
+				type : "Alert",
+				options : "count",
 				//georel :"coveredBy",
 				//geometry:"polygon",
 				//coords : zone.location,
 				dateObserved: `>=${midnight}`
 			}
+
 			if(req.query.id != undefined)
 				jsonQuery["id"] = req.query.id
 
 			let queryToCount = ngsi.createQuery(jsonQuery);
+			console.log(queryToCount)
 
-            await fetch(`${context.host}:${context.port}/${context.v}/entities${queryToCount}`, {
-                method: 'GET',
-                headers: {
-                    'Access-Control-Allow-Methods':'GET, POST, OPTIONS, PUT, PATCH, DELETE'
-                },
-			})
+            await cb.getWithQuery(queryToCount)
 			.then(async (response) => {
 
 				let count = Number(response["headers"]["_headers"]["fiware-total-count"][0])  
-				if (count < 20) {
-					count = 20;
-				}
+				
 				let jsonQuery2 = {
 					type : "Alert",
 					options : "keyValues",
@@ -104,32 +176,38 @@ exports.getCurrent = async function (req,res) {
 					//geometry:"polygon",
 					//coords : zone.location,
 					dateObserved: `>=${midnight}`,
-					limit : count,
+					limit : 10
 				}
+				
 				if(req.query.id != undefined)
 					jsonQuery2["id"] = req.query.id
+
+				if(count > 20)
+					jsonQuery2["offset"] = count - 10;
 
 				let query = ngsi.createQuery(jsonQuery2);
 
 				console.log(query)
 				await cb.getWithQuery(query)
 				.then((result) => {
-				
-					res.status(200).json(result.reverse())
+					
+					res.status(200).json(result.body.reverse())
 					
 				})
 				.catch((error) =>{
-					res.status(500).send(error);
+					res.status(error.status).send(error);
 				})
 				
 			})
 			.catch((error) =>{
+				console.log("segundo")
 				res.status(500).send(error);
 			})
 				
 	  	}  	
 	});
 } 
+
 
 
 

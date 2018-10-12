@@ -2,6 +2,8 @@
 
 var road = require('../models/road.model')
 var context = require("./functions/context")
+var triggers = require("./functions/triggers");
+
 
 function isEmpty (object) {
     if (object == undefined ) return true;
@@ -73,6 +75,7 @@ exports.delete = function(req, res){
 	})
 	.then((result) => {
 		if(result[0] > 0){
+			triggers.afterDeleteRoad(req.params.idRoad);			
 			res.status(200).json(result);
 		}
 		else {

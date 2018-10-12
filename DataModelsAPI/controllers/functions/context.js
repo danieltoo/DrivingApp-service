@@ -18,7 +18,5 @@ exports.create = async (type, json, callback) =>{
             })
             .catch((err) => {
                 callback(false, {message: err});
-            })
-        */
-    
+            })*/
 }

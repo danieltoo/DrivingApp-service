@@ -1,19 +1,18 @@
-FROM node:8
+FROM node:latest
+RUN mkdir /src
 
-# Create a directory where our app will be placed
-RUN mkdir -p /webservice
+#Se creo un archivo adicional nodemon. json dentro de la carpeta de la aplicacion
+#RUN npm install nodemon -g
 
-# Change directory so that our commands run inside this new directory
-WORKDIR /webservice
+WORKDIR /src
+#ADD smartsecurity-web-service/package.json /src/package.json
+#ADD smartsecurity-web-service/ /src/
+#RUN npm install
 
-# Get all the code needed to run the app and the dependency definitions
-COPY . /webservice
+COPY . /src
 
-# Install dependecies
-RUN npm i
-
-# Expose the port the app runs in
 EXPOSE 4005
+RUN npm install
+CMD npm start
 
-# Serve the app
-CMD ["npm", "start"]
+#docker run -p 4005:4005 --env="MYSQL_HOST=192.168.191.134" --env="MYSQL_DB=smartsdksecurity" --env="MYSQL_USER=root" --env="MYSQL_PASSWORD=root"  --env="CRATEDB=http://35.196.174.137:4200" --env="ORION=http://35.196.174.137:1026/v2"  todaniels/smartsecurity-web-service
