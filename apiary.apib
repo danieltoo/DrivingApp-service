@@ -1,80 +1,129 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: http://smartsecurity-webservice.herokuapp.com
 
 # smartsecurity-web-service
 
 Data Models' Web Service - SmartSecurity Scenario of project SMARTSDK
 
-## Questions Collection [/questions]
 
-### List All Questions [GET]
+
+
+
+## Data Models [/api]
+
+### Verification [GET]
 
 + Response 200 (application/json)
 
-        [
+    + Body 
+    
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
+                "message": "Welcome to DataModels API REST"
             }
-        ]
 
-### Create a New Question [POST]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+## Zones [/api/zone]
+
+The datamodel Zone is based on Building of Fiware you can check it https://github.com/Fiware/dataModels/tree/master/specs/Building/Building 
+
+
+
+### List Zones [GET /api/zone{?status}]
+
+
++ Parameters
+    + status: 1 (optional, string) - "1" gets all active entities, you can use "0" to reference inactives entities  
+
+
++ Response 200 (application/json)
+
+    + Body
+    
+            [
+             {
+                "category": ["University"],
+                "location": [
+                  [ 18.875628, -99.219688],
+                  [ 18.875658, -99.219854],,
+                  [ 18.875739, -99.220031],,
+                  [ 18.875886, -99.22016],,
+                  [ 18.876039, -99.220176],,
+                  [ 18.876227, -99.220155],,
+                  [ 18.876419, -99.220181],,
+                  [ 18.876638, -99.220235],,
+                  [ 18.876846, -99.220305],,
+                  [ 18.877161, -99.220294],,
+                  [ 18.87744, -99.220267],,
+                  [ 18.877511, -99.219039],,
+                  [ 18.876785, -99.219162],,
+                  [ 18.875628, -99.219688],
+                ],
+                "centerPoint": [ 
+                    18.876443, -99.22011499999999 
+                ],
+                "idZone": "Zone_1527792778837",
+                "type": "Building",
+                "owner": "Cenidet Palmira",
+                "address": "Interior Internado Palmira S/N, Palmira, 62490 Cuernavaca, Mor.",
+                "description": "Campus 1",
+                "dateCreated": "2018-05-31T18:52:58.000Z",
+                "dateModified": "2018-05-31T18:52:58.000Z",
+                "status": "0",
+                "name": "Cenidet Palmira",
+                "refBuildingType": "Zone"
+            }
+            ]
+    
+        
+### Retreive a especific zone [GET /api/zone/{idZone}/]
+
++ Parameters
+    + idZone: Zone_1524284309191 (required, string)  
+
++ Reponse 200 (application/json)
+
+
+
+### Create a New zone [POST]
+
+
 
 + Request (application/json)
 
+        
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "category": ["University"],
+            "location": [
+              [ 18.875628, -99.219688],
+              [ 18.875658, -99.219854],,
+              [ 18.875739, -99.220031],,
+              [ 18.875886, -99.22016],,
+              [ 18.876039, -99.220176],,
+              [ 18.876227, -99.220155],,
+              [ 18.876419, -99.220181],,
+              [ 18.876638, -99.220235],,
+              [ 18.876846, -99.220305],,
+              [ 18.877161, -99.220294],,
+              [ 18.87744, -99.220267],,
+              [ 18.877511, -99.219039],,
+              [ 18.876785, -99.219162],,
+              [ 18.875628, -99.219688],
+            ],
+            "centerPoint": [ 
+                18.876443, -99.22011499999999 
+            ],
+            "owner": "Cenidet Palmira",
+            "address": "Interior Internado Palmira S/N, Palmira, 62490 Cuernavaca, Mor.",
+            "description": "Campus 1",
         }
+    
++ Response 204 (application/json)
 
-+ Response 201 (application/json)
+### Delete a Zone [DELETE /api/zone/{idZone}]
 
-    + Headers
++ Parameters
+    + idZone: Zone_1524284309191 (required, string)  
 
-            Location: /questions/2
++ Request (application/json)
 
-    + Body
-
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
-            }
++ Reponse 200 (application/json)
