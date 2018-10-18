@@ -44,7 +44,18 @@ Coordinates of a Polygon are an array of LinearRing coordinate arrays. The first
 - dateModified (string)
 - status: 1 (string)
 
+### Road (object)
+- name: Av. Palmira (string)
+- description: Avenida Palmira (string)
+- responsible: Zone_1524284309191 (string)
 
+
+### CompleteRoad (Road)
+- idRoad: Road_1534803087609 (string)
+- type: Road (string)
+- dateCreated (string)
+- dateModified (string)
+- status: 1
 
 
 
@@ -111,11 +122,7 @@ The datamodel Zone is based on Building of Fiware you can check it https://githu
 
 ## Parking [/api/parking]
 
-
-
-
 ### List Parking [GET /api/parking{?status}]
-
 
 + Parameters
     + status: 1 (optional, string) - "1" gets all active entities, you can use "0" to reference inactives entities  
@@ -124,10 +131,8 @@ The datamodel Zone is based on Building of Fiware you can check it https://githu
 + Response 200 (application/json)
     - Attributes (array[CompleteParking])
 
-
-    
         
-### Retreive a zone [GET /api/parking/{idOffStreetParking}]
+### Retreive a parking [GET /api/parking/{idOffStreetParking}]
 
 + Parameters
     + idOffStreetParking: OffStreetParking_1534802604754 (string) ... Id of the parking
@@ -146,9 +151,48 @@ The datamodel Zone is based on Building of Fiware you can check it https://githu
     - Attributes (CompleteParking)
 
 
-### Delete a zone [DELETE /api/parking/{idOffStreetParking}]
+### Delete a parking [DELETE /api/parking/{idOffStreetParking}]
 
 + Parameters
     + idOffStreetParking: OffStreetParking_1534802604754 (string) ... Id of the parking
+
++ Response 204
+
+
+## Road [/api/road]
+
+### List Road[GET /api/road{?status}]
+
++ Parameters
+    + status: 1 (optional, string) - "1" gets all active entities, you can use "0" to reference inactives entities  
+
+
++ Response 200 (application/json)
+    - Attributes (array[CompleteRoad])
+
+        
+### Retreive a road [GET /api/road/{idRoad}]
+
++ Parameters
+    + idRoad: Road_1534803087609 (string) ... Id of the parking
+
++ Response 200
+    - Attributes (CompleteRoad)
+
+
+### Create a road [POST]
+
++ Attributes (Road)
+
++ Request (application/json)
+
++ Response 200
+    - Attributes (CompleteRoad)
+
+
+### Delete a parking [DELETE /api/road/{idRoad}]
+
++ Parameters
+    + idRoad: Road_1534803087609 (string) ... Id of the parking
 
 + Response 204
