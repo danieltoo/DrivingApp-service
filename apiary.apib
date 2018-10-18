@@ -12,17 +12,16 @@ A geometry is a GeoJSON object where the type member's value is one of the follo
 
 <http://geojson.org/geojson-spec.html#geometry-objects>
 
-## Polygon (object)
+## Polygon (array)
 Coordinates of a Polygon are an array of LinearRing coordinate arrays. The first element in the array represents the exterior ring. Any subsequent elements represent interior rings (or holes).
-
 
 ### Zone (object)
 
-- category (array)
+- category: University , Factory (array)
             
 - location (Polygon)
  
-- centerPoint   (array[number])
+- centerPoint: 18.876443, 99.22011499999999 (array[number])
         
 - owner: Cenidet Palmira (string)
 
@@ -67,54 +66,20 @@ The datamodel Zone is based on Building of Fiware you can check it https://githu
 ### Retreive a zone [GET /api/zone/{idZone}]
 
 + Parameters
-    + idZone: Zone_1524284309191 (string) ... Id of the post
+    + idZone: Zone_1524284309191 (string) ... Id of the zone
 
 + Response 204 
+    - Attributes (Zone)
 
 
+### Create a Zone [POST]
 
-### Create a Post [POST]
-
-+ Attributes
-    + category: University (array) 
-    + location (array)
++ Attributes (Zone)
 
 + Request (application/json)
 
 + Response 200
 
-### Create a New zone [POST /pi]
-
-+ Request (application/json)
-
-        
-        {
-            "category": ["University"],
-            "location": [
-              [ 18.875628, -99.219688],
-              [ 18.875658, -99.219854],
-              [ 18.875739, -99.220031],
-              [ 18.875886, -99.22016],
-              [ 18.876039, -99.220176],
-              [ 18.876227, -99.220155],
-              [ 18.876419, -99.220181],
-              [ 18.876638, -99.220235],
-              [ 18.876846, -99.220305],
-              [ 18.877161, -99.220294],
-              [ 18.87744, -99.220267],
-              [ 18.877511, -99.219039],
-              [ 18.876785, -99.219162],
-              [ 18.875628, -99.219688]
-            ],
-            "centerPoint": [ 
-                18.876443, -99.22011499999999 
-            ],
-            "owner": "Cenidet Palmira",
-            "address": "Interior Internado Palmira S/N, Palmira, 62490 Cuernavaca, Mor.",
-            "description": "Campus 1",
-        }
-    
-+ Response 204 (application/json)
 
 ### Delete a zone [DELETE /api/zone/{idZone}]
 
