@@ -15,6 +15,8 @@ A geometry is a GeoJSON object where the type member's value is one of the follo
 ## Polygon (array)
 Coordinates of a Polygon are an array of LinearRing coordinate arrays. The first element in the array represents the exterior ring. Any subsequent elements represent interior rings (or holes).
 
+## Polyline (array)
+
 ### Zone (object)
 - category: University , Factory (array)
 - location (Polygon)
@@ -33,8 +35,8 @@ Coordinates of a Polygon are an array of LinearRing coordinate arrays. The first
 
 - category: Private, For employees, For Visitors, For Students (array)
 - location (Polygon)
-- name: "Estacionamiento 1",
-- description: "Estacionamiento 1",
+- name: Estacionamiento 1,
+- description: Estacionamiento 1,
 
 ### CompleteParking (Parking)
 - idOffStreetParking: OffStreetParking_1534802604754 (string)
@@ -55,9 +57,55 @@ Coordinates of a Polygon are an array of LinearRing coordinate arrays. The first
 - type: Road (string)
 - dateCreated (string)
 - dateModified (string)
-- status: 1
+- status: 1 (string)
 
+### RoadSegment (object)
+- location (Polyline)
+- startPoint: 18.88186, 99.220417 (array[number])
+- endPoint: 18.88186, 99.220417 (array[number])
+- laneUsage: forward (array)
+- name: Av. Palmira 1 (string)
+- refRoad: Road_1534803087609 (string)
+- totalLaneNumber: 1 (number)
+- maximumAllowedSpeed: 10 (number)
+- minimumAllowedSpeed: 5 (number)
+- width: 5 (number)
 
+### CompleteRoadSegment (RoadSegment)
+- idRoadSegment: RoadSegment_1534803216079 (string)
+- type: RoadSegment (string)
+- dateCreated (string)
+- dateModified (string)
+- status: 0 (string)
+
+### DeviceToken (object)
+- refDevice: Device_Smartphone_1fb5e1d94fbe3b07 (string)
+- fcmToken: ftdRdA_u5RA:APA91bH8ydZgC1XkXE9BnczVpwFk3fjaYRpgckPyctZ9hTiedd-kOF2sjvBtD5WrnFClmnSyjctLE3rKUwNDWq9aCLm1MMT0-f_m7HzKiW9W3KNqfa0li_lvRSdEkR2kx5zQmYgwk2E- (string)
+- preferences: All (string)
+
+### CompleteDeviceToken (DeviceToken)
+- idDeviceToken: DeviceToken_Device_Smartphone_1fb5e1d94fbe3b07 (string)
+- dateCreated (string)
+- dateModified (string)
+- status: 1 (string)
+
+### User 
+- firstName: "Micuenta",
+- lastName: "Pruebas",
+- email: "micuentapruebq@gmail.com"
+- userName: mi (string)
+- address (string)
+- phoneNumber: 217351191662 (string)
+
+### CompleteUser (User)
+- id: User_1529706391351 (string)
+- dateCreated (string)
+- dateModified (string)
+- status: 1 (string)
+
+### UserToken 
+- token (string)
+- user (CompleteUser)
 
 ## Data Models [/api]
 
@@ -121,8 +169,10 @@ The datamodel Zone is based on Building of Fiware you can check it https://githu
 
 
 ## Parking [/api/parking]
+The datamodel Parking is based on OffStreetParking of Fiware you can check it 
+https://github.com/Fiware/dataModels/blob/master/specs/Parking/OffStreetParking/doc/spec.md
 
-### List Parking [GET /api/parking{?status}]
+### List Parkings [GET /api/parking{?status}]
 
 + Parameters
     + status: 1 (optional, string) - "1" gets all active entities, you can use "0" to reference inactives entities  
@@ -161,7 +211,10 @@ The datamodel Zone is based on Building of Fiware you can check it https://githu
 
 ## Road [/api/road]
 
-### List Road[GET /api/road{?status}]
+The datamodel Road is based on Road of Fiware you can check it 
+https://github.com/Fiware/dataModels/blob/master/specs/Transportation/Road/doc/spec.md
+
+### List Roads [GET /api/road{?status}]
 
 + Parameters
     + status: 1 (optional, string) - "1" gets all active entities, you can use "0" to reference inactives entities  
@@ -174,7 +227,7 @@ The datamodel Zone is based on Building of Fiware you can check it https://githu
 ### Retreive a road [GET /api/road/{idRoad}]
 
 + Parameters
-    + idRoad: Road_1534803087609 (string) ... Id of the parking
+    + idRoad: Road_1534803087609 (string) ... Id of the road
 
 + Response 200
     - Attributes (CompleteRoad)
@@ -190,9 +243,138 @@ The datamodel Zone is based on Building of Fiware you can check it https://githu
     - Attributes (CompleteRoad)
 
 
-### Delete a parking [DELETE /api/road/{idRoad}]
+### Delete a road [DELETE /api/road/{idRoad}]
 
 + Parameters
-    + idRoad: Road_1534803087609 (string) ... Id of the parking
+    + idRoad: Road_1534803087609 (string) ... Id of the road
+
++ Response 204
+
+
+## Road segment [/api/roadSegment]
+The datamodel Road is based on Road of Fiware you can check it 
+https://github.com/Fiware/dataModels/blob/master/specs/Transportation/RoadSegment/doc/spec.md
+
+### List road segments [GET /api/roadSegment{?status}]
+
++ Parameters
+    + status: 1 (optional, string) - "1" gets all active entities, you can use "0" to reference inactives entities  
+
+
++ Response 200 (application/json)
+    - Attributes (array[CompleteRoadSegment])
+
+        
+### Retreive a road segment [GET /api/roadSegment/{idRoadSegment}]
+
++ Parameters
+    + idRoadSegment: RoadSegment_1534803216079 (string) ... Id of the road segment
+
++ Response 200
+    - Attributes (CompleteRoadSegment)
+
+
+### Create a road segment [POST]
+
++ Attributes (RoadSegment)
+
++ Request (application/json)
+
++ Response 200
+    - Attributes (CompleteRoadSegment)
+
+
+### Delete a road segment [DELETE /api/roadSegment/{idRoadSegment}]
+
++ Parameters
+    + idRoadSegment: RoadSegment_1534803216079 (string) ... Id of the road segment
+
++ Response 204
+
+## Device Tokens [/api/device/token]
+
+### List Device Tokens[GET /api/device/token{?status}]
+
++ Parameters
+    + status: 1 (optional, string) - "1" gets all active entities, you can use "0" to reference inactives entities  
+
+
++ Response 200 (application/json)
+    - Attributes (array[CompleteDeviceToken])
+
+        
+### Retreive a Device Token [GET /api/device/token/{idDeviceToken}]
+
++ Parameters
+    + idDeviceToken: Device_Smartphone_1fb5e1d94fbe3b07 (string) ... Id of the device token
+
++ Response 200
+    - Attributes (CompleteDeviceToken)
+
+
+### Create a Device Token [POST]
+
++ Attributes (DeviceToken)
+
++ Request (application/json)
+
++ Response 200
+    - Attributes (CompleteDeviceToken)
+
+
+### Delete a Device Token [DELETE /api/device/token/{idDeviceToken}]
+
++ Parameters
+    + idDeviceToken: Device_Smartphone_1fb5e1d94fbe3b07 (string) ... Id of the device token
+
++ Response 204
+
+## User [/api/user]
+
+### List Users [GET /api/user{?status}]
+
++ Parameters
+    + status: 1 (optional, string) - "1" gets all active entities, you can use "0" to reference inactives entities  
+
+
++ Response 200 (application/json)
+    - Attributes (array[CompleteUser])
+
+
+### Login [POST /api/user/login]
+
++ Attributes
+     - phoneNumber : 5217351191661 (string)
+     - password : micienta
+
++ Request (application/json)
+
++ Response 200
+    - Attributes (UserToken)
+        
+### Retreive a User [GET /api/user/{id}]
+
++ Parameters
+    + id: User_1537282536716 (string) ... Id of the user
+
++ Response 200
+    - Attributes (CompleteUser)
+
+
+### Create a user[POST]
+
++ Attributes (User)
+     - password: mi (string)
+
++ Request (application/json)
+
++ Response 200
+    - Attributes (CompleteUser)
+
+
+### Delete a user [DELETE /api/user/{id}]
+
++ Parameters
+    + id: User_1537282536716 (string) ... Id of the user
 
 + Response 204
