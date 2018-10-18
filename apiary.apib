@@ -15,12 +15,16 @@ A geometry is a GeoJSON object where the type member's value is one of the follo
 ## Polygon (array)
 Coordinates of a Polygon are an array of LinearRing coordinate arrays. The first element in the array represents the exterior ring. Any subsequent elements represent interior rings (or holes).
 
+## Point (array)
+Coordinates o a especific point including longitude and latitude
+
 ## Polyline (array)
+Coordinates of a Polygon an array on Line 
 
 ### Zone (object)
 - category: University , Factory (array)
 - location (Polygon)
-- centerPoint: 18.876443, 99.22011499999999 (array[number])
+- centerPoint: 18.876443, -99.22011499999999 (Point)
 - owner: Cenidet Palmira (string)
 - address: Interior Internado Palmira S/N, Palmira, 62490 Cuernavaca, Mor. (string)
 - description: Campus Cenidet (string)
@@ -106,6 +110,45 @@ Coordinates of a Polygon are an array of LinearRing coordinate arrays. The first
 ### UserToken 
 - token (string)
 - user (CompleteUser)
+
+### Alert 
+- id: AlertDevice_Smartphone (string)
+- type: Alert (string)
+- alertSource: Device_Smartphone_ (string)
+- category: unknownAlert (string)
+- dateObserved (string) 
+- description: Unknown Alert (string)
+- location: 18.876708, -99.219859 (Point)
+- severity: critical (string)
+- subCategory: unknown (string)
+- validFrom (string)
+- validTo (string)
+
+### Device
+- id: Device_Smartphone (string)
+- type: Device (string)
+- accuracy: 3.700000048 (number)
+- batteryLevel: 52.999996185 (number)
+- category: smartphone (string) 
+- dateCreated (string)
+- dateModified (string)
+- ipAddress: 192.168.249.20 (string)
+- location: 18.876708, -99.219859 (Point)
+- osVersion: 5.1 (string)
+- owner : User_1537282536716 (string)
+- refDeviceModel: DeviceModel_TCL_ (string)
+- serialNumber: 4TZHB6RO99999999 (string)
+- time: 1521570000000 (number) 
+
+### CrateDevice
+- category (string)
+- entity_id (string)
+- entity_type (string)
+- location (Polygon)
+- owner (string)
+- time_index (string)
+
+### Entities (object)
 
 ## Data Models [/api]
 
@@ -378,3 +421,112 @@ https://github.com/Fiware/dataModels/blob/master/specs/Transportation/RoadSegmen
     + id: User_1537282536716 (string) ... Id of the user
 
 + Response 204
+
+## Services [/service]
+
+### Verification [GET]
+
++ Response 200 (application/json)
+
+    + Body 
+    
+            {
+                "message": "Welcome to Especial Services API"
+            }
+
+## Alerts [/service/alerts/zone/]
+
+The datamodel Alert is based on Alert of Fiware you can check it 
+https://github.com/Fiware/dataModels/blob/master/specs/Alert/doc/spec.md
+
+### Retreive last ten alerts of the day on zone [GET /service/alerts/zone/current/{idZone}]
+
++ Parameters
+    + idZone: Zone_1524284309191 (string) ... Id of the zone
+
++ Response 200 (application/json)
+    - Attributes (array[Alert])
+
+### Retreive last ten alerts of last hour on zone [GET /service/alerts/zone/current/hour/{idZone}]
+
++ Parameters
+    + idZone: Zone_1524284309191 (string) ... Id of the zone
+
++ Response 200
+    - Attributes (array[Alert])
+
+### Retreive last ten alerts on the zone [GET /service/alerts/zone/history/{idZone}]
+
++ Parameters
+    + idZone: Zone_1524284309191 (string) ... Id of the zone
+
++ Response 201 (application/json)
+
+    + Header
+    
+            fiware-total-count: 44455
+            
+    - Attributes (array[Alert])
+    
+
+## Devices [/service/devices/zone/]
+
+The datamodel Device is based on Device of Fiware you can check it 
+https://github.com/Fiware/dataModels/blob/master/specs/Device/Device/doc/spec.md
+
+### Retreive the devices on a zone [GET /service/devices/{idZone}]
+
++ Parameters
+    + idZone: Zone_1524284309191 (string) ... Id of the zone
+
++ Response 200
+    - Attributes (array[Device])
+
+### Retreive the device that belongs to the user on the zone [GET /devices/zone/{idZone}/owner{?phoneNumber}]
+
++ Parameters
+    + idZone: Zone_1524284309191 (string) ... Id of the zone
+    + phoneNumber: 5217351191662
+
++ Response 200
+    - Attributes (array[Device])
+    
+## Query [/service/query]
+
+### Make a query consult [POST]
+
++ Attributes
+    - id (string)
+    - type (string)
+    - options (string)
+    - georel (string)
+    - geometry (string)
+    - coords (Polygon)
+
++ Request (application/json)
+
++ Response 200
+    - Attributes (array[Entities])
+
+
+## Crate Api [/crate]
+
+### Verification [GET]
+
++ Response 200 (application/json)
+
+    + Body 
+    
+            {
+                "message": "Welcome to CRATE API"
+            }
+
+### Retreive the device of user that was on the zone [GET /crate/locationOwnerDateTime{?owner,date,time}]
+
++ Parameters
+    + owner: User_1537282536716 (string) ... Id of the zone
+    + date: 2018-02-08 (string)
+    + time: 12 (number)
+
++ Response 200
+    - Attributes (array[CrateDevice])
