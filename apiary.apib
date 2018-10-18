@@ -16,18 +16,35 @@ A geometry is a GeoJSON object where the type member's value is one of the follo
 Coordinates of a Polygon are an array of LinearRing coordinate arrays. The first element in the array represents the exterior ring. Any subsequent elements represent interior rings (or holes).
 
 ### Zone (object)
-
 - category: University , Factory (array)
-            
 - location (Polygon)
- 
 - centerPoint: 18.876443, 99.22011499999999 (array[number])
-        
 - owner: Cenidet Palmira (string)
-
 - address: Interior Internado Palmira S/N, Palmira, 62490 Cuernavaca, Mor. (string)
-            
 - description: Campus Cenidet (string)
+
+### CompleteZone (Zone)
+- idZone (string)
+- dateCreated (string)
+- dateModified (string) 
+- status: 1 (string)
+
+### Parking (object)
+
+- category: Private, For employees, For Visitors, For Students (array)
+- location (Polygon)
+- name: "Estacionamiento 1",
+- description: "Estacionamiento 1",
+
+### CompleteParking (Parking)
+- idOffStreetParking: OffStreetParking_1534802604754 (string)
+- type: OffStreetParking (string)
+- areaServed: Zone_1525368918624 (string)
+- dateCreated (string)
+- dateModified (string)
+- status: 1 (string)
+
+
 
 
 
@@ -59,7 +76,8 @@ The datamodel Zone is based on Building of Fiware you can check it https://githu
 
 
 + Response 200 (application/json)
-    - Attributes (array[Zone])
+    - Attributes (array[CompleteZone])
+
 
     
         
@@ -68,8 +86,8 @@ The datamodel Zone is based on Building of Fiware you can check it https://githu
 + Parameters
     + idZone: Zone_1524284309191 (string) ... Id of the zone
 
-+ Response 204 
-    - Attributes (Zone)
++ Response 200
+    - Attributes (CompleteZone)
 
 
 ### Create a Zone [POST]
@@ -84,6 +102,53 @@ The datamodel Zone is based on Building of Fiware you can check it https://githu
 ### Delete a zone [DELETE /api/zone/{idZone}]
 
 + Parameters
-    + idZone: Zone_1524284309191 (string) ... Id of the post
+    + idZone: Zone_1524284309191 (string) ... Id of the parking
+
++ Response 204
+
+
+
+
+## Parking [/api/parking]
+
+
+
+
+### List Parking [GET /api/parking{?status}]
+
+
++ Parameters
+    + status: 1 (optional, string) - "1" gets all active entities, you can use "0" to reference inactives entities  
+
+
++ Response 200 (application/json)
+    - Attributes (array[CompleteParking])
+
+
+    
+        
+### Retreive a zone [GET /api/parking/{idOffStreetParking}]
+
++ Parameters
+    + idOffStreetParking: OffStreetParking_1534802604754 (string) ... Id of the parking
+
++ Response 200
+    - Attributes (CompleteParking)
+
+
+### Create a parking [POST]
+
++ Attributes (Parking)
+
++ Request (application/json)
+
++ Response 200
+    - Attributes (CompleteParking)
+
+
+### Delete a zone [DELETE /api/parking/{idOffStreetParking}]
+
++ Parameters
+    + idOffStreetParking: OffStreetParking_1534802604754 (string) ... Id of the parking
 
 + Response 204
