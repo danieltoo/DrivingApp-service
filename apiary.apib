@@ -174,9 +174,9 @@ Coordinates of a Polygon an array on Line
 
 ### Entities (object)
 
-# Data Models [/api]
+# Group Data Models
 
-## Verification [GET]
+### Verification [GET /api]
 
 + Response 200 (application/json)
 
@@ -188,13 +188,9 @@ Coordinates of a Polygon an array on Line
 
 
 
-## Zones [/api/zone]
+### Zones [/api/zone]
 
-The datamodel Zone is based on Building of Fiware you can check it https://github.com/Fiware/dataModels/tree/master/specs/Building/Building 
-
-
-
-### List Zones [GET /api/zone{?status}]
+#### List Zones [GET /api/zone{?status}]
 
 
 + Parameters
@@ -207,7 +203,7 @@ The datamodel Zone is based on Building of Fiware you can check it https://githu
 
     
         
-### Retreive a zone [GET /api/zone/{idZone}]
+#### Retreive a zone [GET /api/zone/{idZone}]
 
 + Parameters
     + idZone: Zone_1524284309191 (string) ... Id of the zone
@@ -216,7 +212,7 @@ The datamodel Zone is based on Building of Fiware you can check it https://githu
     - Attributes (CompleteZone)
 
 
-### Create a Zone [POST]
+#### Create a Zone [POST]
 
 + Attributes (Zone)
 
@@ -225,7 +221,7 @@ The datamodel Zone is based on Building of Fiware you can check it https://githu
 + Response 200
 
 
-### Delete a zone [DELETE /api/zone/{idZone}]
+#### Delete a zone [DELETE /api/zone/{idZone}]
 
 + Parameters
     + idZone: Zone_1524284309191 (string) ... Id of the parking
@@ -235,11 +231,9 @@ The datamodel Zone is based on Building of Fiware you can check it https://githu
 
 
 
-## Parking [/api/parking]
-The datamodel Parking is based on OffStreetParking of Fiware you can check it 
-https://github.com/Fiware/dataModels/blob/master/specs/Parking/OffStreetParking/doc/spec.md
+### Parking [/api/parking]
 
-### List Parkings [GET /api/parking{?status}]
+#### List Parkings [GET /api/parking{?status}]
 
 + Parameters
     + status: 1 (optional, string) - "1" gets all active entities, you can use "0" to reference inactives entities  
@@ -249,7 +243,7 @@ https://github.com/Fiware/dataModels/blob/master/specs/Parking/OffStreetParking/
     - Attributes (array[CompleteParking])
 
         
-### Retreive a parking [GET /api/parking/{idOffStreetParking}]
+#### Retreive a parking [GET /api/parking/{idOffStreetParking}]
 
 + Parameters
     + idOffStreetParking: OffStreetParking_1534802604754 (string) ... Id of the parking
@@ -258,7 +252,7 @@ https://github.com/Fiware/dataModels/blob/master/specs/Parking/OffStreetParking/
     - Attributes (CompleteParking)
 
 
-### Create a parking [POST]
+#### Create a parking [POST]
 
 + Attributes (Parking)
 
@@ -268,7 +262,7 @@ https://github.com/Fiware/dataModels/blob/master/specs/Parking/OffStreetParking/
     - Attributes (CompleteParking)
 
 
-### Delete a parking [DELETE /api/parking/{idOffStreetParking}]
+#### Delete a parking [DELETE /api/parking/{idOffStreetParking}]
 
 + Parameters
     + idOffStreetParking: OffStreetParking_1534802604754 (string) ... Id of the parking
@@ -276,12 +270,9 @@ https://github.com/Fiware/dataModels/blob/master/specs/Parking/OffStreetParking/
 + Response 204
 
 
-## Road [/api/road]
+### Road [/api/road]
 
-The datamodel Road is based on Road of Fiware you can check it 
-https://github.com/Fiware/dataModels/blob/master/specs/Transportation/Road/doc/spec.md
-
-### List Roads [GET /api/road{?status}]
+#### List Roads [GET /api/road{?status}]
 
 + Parameters
     + status: 1 (optional, string) - "1" gets all active entities, you can use "0" to reference inactives entities  
@@ -291,7 +282,7 @@ https://github.com/Fiware/dataModels/blob/master/specs/Transportation/Road/doc/s
     - Attributes (array[CompleteRoad])
 
         
-### Retreive a road [GET /api/road/{idRoad}]
+#### Retreive a road [GET /api/road/{idRoad}]
 
 + Parameters
     + idRoad: Road_1534803087609 (string) ... Id of the road
@@ -300,7 +291,7 @@ https://github.com/Fiware/dataModels/blob/master/specs/Transportation/Road/doc/s
     - Attributes (CompleteRoad)
 
 
-### Create a road [POST]
+#### Create a road [POST]
 
 + Attributes (Road)
 
@@ -310,7 +301,7 @@ https://github.com/Fiware/dataModels/blob/master/specs/Transportation/Road/doc/s
     - Attributes (CompleteRoad)
 
 
-### Delete a road [DELETE /api/road/{idRoad}]
+#### Delete a road [DELETE /api/road/{idRoad}]
 
 + Parameters
     + idRoad: Road_1534803087609 (string) ... Id of the road
@@ -318,11 +309,9 @@ https://github.com/Fiware/dataModels/blob/master/specs/Transportation/Road/doc/s
 + Response 204
 
 
-## Road segment [/api/roadSegment]
-The datamodel Road is based on Road of Fiware you can check it 
-https://github.com/Fiware/dataModels/blob/master/specs/Transportation/RoadSegment/doc/spec.md
+### Road segment [/api/roadSegment]
 
-### List road segments [GET /api/roadSegment{?status}]
+#### List road segments [GET /api/roadSegment{?status}]
 
 + Parameters
     + status: 1 (optional, string) - "1" gets all active entities, you can use "0" to reference inactives entities  
@@ -332,7 +321,7 @@ https://github.com/Fiware/dataModels/blob/master/specs/Transportation/RoadSegmen
     - Attributes (array[CompleteRoadSegment])
 
         
-### Retreive a road segment [GET /api/roadSegment/{idRoadSegment}]
+#### Retreive a road segment [GET /api/roadSegment/{idRoadSegment}]
 
 + Parameters
     + idRoadSegment: RoadSegment_1534803216079 (string) ... Id of the road segment
@@ -341,7 +330,7 @@ https://github.com/Fiware/dataModels/blob/master/specs/Transportation/RoadSegmen
     - Attributes (CompleteRoadSegment)
 
 
-### Create a road segment [POST]
+#### Create a road segment [POST]
 
 + Attributes (RoadSegment)
 
@@ -351,16 +340,16 @@ https://github.com/Fiware/dataModels/blob/master/specs/Transportation/RoadSegmen
     - Attributes (CompleteRoadSegment)
 
 
-### Delete a road segment [DELETE /api/roadSegment/{idRoadSegment}]
+#### Delete a road segment [DELETE /api/roadSegment/{idRoadSegment}]
 
 + Parameters
     + idRoadSegment: RoadSegment_1534803216079 (string) ... Id of the road segment
 
 + Response 204
 
-## Device Tokens [/api/device/token]
+### Device Tokens [/api/device/token]
 
-### List Device Tokens[GET /api/device/token{?status}]
+#### List Device Tokens[GET /api/device/token{?status}]
 
 + Parameters
     + status: 1 (optional, string) - "1" gets all active entities, you can use "0" to reference inactives entities  
@@ -370,7 +359,7 @@ https://github.com/Fiware/dataModels/blob/master/specs/Transportation/RoadSegmen
     - Attributes (array[CompleteDeviceToken])
 
         
-### Retreive a Device Token [GET /api/device/token/{idDeviceToken}]
+#### Retreive a Device Token [GET /api/device/token/{idDeviceToken}]
 
 + Parameters
     + idDeviceToken: Device_Smartphone_1fb5e1d94fbe3b07 (string) ... Id of the device token
@@ -379,7 +368,7 @@ https://github.com/Fiware/dataModels/blob/master/specs/Transportation/RoadSegmen
     - Attributes (CompleteDeviceToken)
 
 
-### Create a Device Token [POST]
+#### Create a Device Token [POST]
 
 + Attributes (DeviceToken)
 
@@ -389,16 +378,16 @@ https://github.com/Fiware/dataModels/blob/master/specs/Transportation/RoadSegmen
     - Attributes (CompleteDeviceToken)
 
 
-### Delete a Device Token [DELETE /api/device/token/{idDeviceToken}]
+#### Delete a Device Token [DELETE /api/device/token/{idDeviceToken}]
 
 + Parameters
     + idDeviceToken: Device_Smartphone_1fb5e1d94fbe3b07 (string) ... Id of the device token
 
 + Response 204
 
-## User [/api/user]
+### User [/api/user]
 
-### List Users [GET /api/user{?status}]
+#### List Users [GET /api/user{?status}]
 
 + Parameters
     + status: 1 (optional, string) - "1" gets all active entities, you can use "0" to reference inactives entities  
@@ -408,7 +397,7 @@ https://github.com/Fiware/dataModels/blob/master/specs/Transportation/RoadSegmen
     - Attributes (array[CompleteUser])
 
 
-### Login [POST /api/user/login]
+#### Login [POST /api/user/login]
 
 + Attributes
      - phoneNumber : 5217351191661 (string)
@@ -419,7 +408,7 @@ https://github.com/Fiware/dataModels/blob/master/specs/Transportation/RoadSegmen
 + Response 200
     - Attributes (UserToken)
         
-### Retreive a User [GET /api/user/{id}]
+#### Retreive a User [GET /api/user/{id}]
 
 + Parameters
     + id: User_1537282536716 (string) ... Id of the user
@@ -428,7 +417,7 @@ https://github.com/Fiware/dataModels/blob/master/specs/Transportation/RoadSegmen
     - Attributes (CompleteUser)
 
 
-### Create a user[POST]
+#### Create a user[POST]
 
 + Attributes (User)
      - password: mi (string)
@@ -439,16 +428,16 @@ https://github.com/Fiware/dataModels/blob/master/specs/Transportation/RoadSegmen
     - Attributes (CompleteUser)
 
 
-### Delete a user [DELETE /api/user/{id}]
+#### Delete a user [DELETE /api/user/{id}]
 
 + Parameters
     + id: User_1537282536716 (string) ... Id of the user
 
 + Response 204
 
-## Services [/service]
+# Group Special Services
 
-### Verification [GET]
+### Verification [GET /service]
 
 + Response 200 (application/json)
 
@@ -458,12 +447,12 @@ https://github.com/Fiware/dataModels/blob/master/specs/Transportation/RoadSegmen
                 "message": "Welcome to Especial Services API"
             }
 
-## Alerts [/service/alerts/zone/]
+### Alerts [/service/alerts/zone/]
 
 The datamodel Alert is based on Alert of Fiware you can check it 
 https://github.com/Fiware/dataModels/blob/master/specs/Alert/doc/spec.md
 
-### Retreive last ten alerts of the day on zone [GET /service/alerts/zone/current/{idZone}]
+#### Retreive last ten alerts of the day on zone [GET /service/alerts/zone/current/{idZone}]
 
 + Parameters
     + idZone: Zone_1524284309191 (string) ... Id of the zone
@@ -471,7 +460,7 @@ https://github.com/Fiware/dataModels/blob/master/specs/Alert/doc/spec.md
 + Response 200 (application/json)
     - Attributes (array[Alert])
 
-### Retreive last ten alerts of last hour on zone [GET /service/alerts/zone/current/hour/{idZone}]
+#### Retreive last ten alerts of last hour on zone [GET /service/alerts/zone/current/hour/{idZone}]
 
 + Parameters
     + idZone: Zone_1524284309191 (string) ... Id of the zone
@@ -479,7 +468,7 @@ https://github.com/Fiware/dataModels/blob/master/specs/Alert/doc/spec.md
 + Response 200
     - Attributes (array[Alert])
 
-### Retreive last ten alerts on the zone [GET /service/alerts/zone/history/{idZone}]
+#### Retreive last ten alerts on the zone [GET /service/alerts/zone/history/{idZone}]
 
 + Parameters
     + idZone: Zone_1524284309191 (string) ... Id of the zone
@@ -493,12 +482,12 @@ https://github.com/Fiware/dataModels/blob/master/specs/Alert/doc/spec.md
     - Attributes (array[Alert])
     
 
-## Devices [/service/devices/zone/]
+### Devices [/service/devices/zone/]
 
 The datamodel Device is based on Device of Fiware you can check it 
 https://github.com/Fiware/dataModels/blob/master/specs/Device/Device/doc/spec.md
 
-### Retreive the devices on a zone [GET /service/devices/{idZone}]
+#### Retreive the devices on a zone [GET /service/devices/{idZone}]
 
 + Parameters
     + idZone: Zone_1524284309191 (string) ... Id of the zone
@@ -506,7 +495,7 @@ https://github.com/Fiware/dataModels/blob/master/specs/Device/Device/doc/spec.md
 + Response 200
     - Attributes (array[Device])
 
-### Retreive the device that belongs to the user on the zone [GET /devices/zone/{idZone}/owner{?phoneNumber}]
+#### Retreive the device that belongs to the user on the zone [GET /devices/zone/{idZone}/owner{?phoneNumber}]
 
 + Parameters
     + idZone: Zone_1524284309191 (string) ... Id of the zone
@@ -515,9 +504,9 @@ https://github.com/Fiware/dataModels/blob/master/specs/Device/Device/doc/spec.md
 + Response 200
     - Attributes (array[Device])
     
-## Query [/service/query]
+### Query [/service/query]
 
-### Make a query consult [POST]
+#### Make a query consult [POST]
 
 + Attributes
     - id (string)
@@ -533,9 +522,9 @@ https://github.com/Fiware/dataModels/blob/master/specs/Device/Device/doc/spec.md
     - Attributes (array[Entities])
 
 
-## Crate Api [/crate]
+# Group Crate Api 
 
-### Verification [GET]
+#### Verification [GET /crate]
 
 + Response 200 (application/json)
 
@@ -545,7 +534,7 @@ https://github.com/Fiware/dataModels/blob/master/specs/Device/Device/doc/spec.md
                 "message": "Welcome to CRATE API"
             }
 
-### Retreive the device of user that was on the zone [GET /crate/locationOwnerDateTime{?owner,date,time}]
+#### Retreive the device of user that was on the zone [GET /crate/locationOwnerDateTime{?owner,date,time}]
 
 + Parameters
     + owner: User_1537282536716 (string) ... Id of the zone
