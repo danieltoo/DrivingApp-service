@@ -6,18 +6,18 @@ HOST: https://smartsecurity-webservice.herokuapp.com
 Data Models' Web Service - SmartSecurity Scenario of project SMARTSDK
 
 ## Zone 
-The Zone data model is based on Building data model of Fiware. The Building data model is used in the SmartSecurity application to delimit the space geographic occupied by an organization, as well as its characteristics. This data model has been defined following the GSMA Building data model adopted recently as a FIWARE data model. It is important to note that, the Building data model does not have the "name" attribute; for our application this is required. For this reason, we have added the name of the zone within the owner attribute of this data model. This model is also used to model other building or a “zone” of an organization; for this reason, we use the category attribute to define if a building is a zone.
+The Zone data model is based on [Building data model of Fiware](https://github.com/Fiware/dataModels/tree/master/specs/Building/Building). The Building data model is used in the SmartSecurity application to delimit the space geographic occupied by an organization, as well as its characteristics. This data model has been defined following the GSMA Building data model adopted recently as a FIWARE data model. It is important to note that, the Building data model does not have the "name" attribute; for our application this is required. For this reason, we have added the name of the zone within the owner attribute of this data model. This model is also used to model other building or a “zone” of an organization; for this reason, we use the category attribute to define if a building is a zone.
 
 ## Parking
-The Parking data model is based on OffStreetParking data model of Fiware, Parking model is used in the Smart Security application to delimit the geographic space of the parking lots that are within the of an organization, and describe its characteristics. In addition, this data model allow to reference to another data model that contains the parking within its area, through the areaServed attribute of this data model. For this reason, we use areaServed attribute to reference to the organization’s zone that contains the parking lot.
+The Parking data model is based on [OffStreetParking data model of Fiware](https://github.com/Fiware/dataModels/tree/master/specs/Parking/OffStreetParking), Parking model is used in the Smart Security application to delimit the geographic space of the parking lots that are within the of an organization, and describe its characteristics. In addition, this data model allow to reference to another data model that contains the parking within its area, through the areaServed attribute of this data model. For this reason, we use areaServed attribute to reference to the organization’s zone that contains the parking lot.
 
 ## Road 
 
-The Road data model based on Road data model of Fiware is used in the SmartSecurity application to define the parking streets of an organization. Also this data model is used to define those streets that are within the geographic space of the organization.
+The Road data model based on [Road data model of Fiware](https://github.com/Fiware/dataModels/tree/master/specs/Transportation/Road) is used in the SmartSecurity application to define the parking streets of an organization. Also this data model is used to define those streets that are within the geographic space of the organization.
 
 ## Road Segment
 
-The RoadSegment data model based on RoadSegment of Fiware is used in the Smart Security application to describe the characteristics of segments in which a street can be divided; besides, this model provides attributes to detail the properties of the lines or lanes that the street segment contains.
+The RoadSegment data model based on [RoadSegment data model of Fiware](https://github.com/Fiware/dataModels/tree/master/specs/Transportation/RoadSegment) is used in the Smart Security application to describe the characteristics of segments in which a street can be divided; besides, this model provides attributes to detail the properties of the lines or lanes that the street segment contains.
 
 ## User
 
