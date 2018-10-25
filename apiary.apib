@@ -3,8 +3,7 @@ HOST: https://smartsecurity-webservice.herokuapp.com
 
 # smartsecurity-web-service
 
-Data Models' Web Service - SmartSecurity Scenario of project SMARTSDK
-
+This specification defines smartsecurity-web-service API. The smartsecurity-web-service is an API Rest implementation built it with the environment NodeJS, smartsecurity-web-service allows to manage the information provided of three different sources, the first one is the Orion Contextbroker GE of Fiware used to manage the context information, the second one CrateDB used by Quamtumleap GE of Fiware to store time series information and finally the DBMS MariaDB used to store the complementary information.
 ## Data Models
 
 ### Zone 
@@ -14,20 +13,22 @@ The Zone data model is based on [Building data model of Fiware](https://github.c
 The Parking data model is based on [OffStreetParking data model of Fiware](https://github.com/Fiware/dataModels/tree/master/specs/Parking/OffStreetParking), Parking model is used in the Smart Security application to delimit the geographic space of the parking lots that are within the of an organization, and describe its characteristics. In addition, this data model allow to reference to another data model that contains the parking within its area, through the areaServed attribute of this data model. For this reason, we use areaServed attribute to reference to the organization’s zone that contains the parking lot.
 
 ### Road 
-
 The Road data model based on [Road data model of Fiware](https://github.com/Fiware/dataModels/tree/master/specs/Transportation/Road) is used in the SmartSecurity application to define the parking streets of an organization. Also this data model is used to define those streets that are within the geographic space of the organization.
 
 ### Road Segment
-
 The RoadSegment data model based on [RoadSegment data model of Fiware](https://github.com/Fiware/dataModels/tree/master/specs/Transportation/RoadSegment) is used in the Smart Security application to describe the characteristics of segments in which a street can be divided; besides, this model provides attributes to detail the properties of the lines or lanes that the street segment contains.
 
 ### User
-
 The user data model was designed especially for the Smart Security scenario, the user model complies with the basic attributes used for the Identity Manager of Fiware.
-
 
 ### Device Token
 The Device Token data model was designed to complement the information used on Device data model of Fiware, the additional information including in Device Token include attributes used to send and manage the push notifications sent to the mobile application.
+
+### Alert
+The Alert Model is based on [Alert data model of Fiware](https://github.com/Fiware/dataModels/blob/master/specs/Alert/).
+
+### Device 
+The Device Model is based on [Device data model of Fiware](https://github.com/Fiware/dataModels/blob/master/specs/Device/Device/) using only the mandatory attributes.
 
 # Data Structures
 
@@ -449,9 +450,6 @@ Coordinates of a Polygon an array on Line
 
 ### Alerts [/service/alerts/zone/]
 
-The datamodel Alert is based on Alert of Fiware you can check it 
-https://github.com/Fiware/dataModels/blob/master/specs/Alert/doc/spec.md
-
 #### Retreive last ten alerts of the day on zone [GET /service/alerts/zone/current/{idZone}]
 
 + Parameters
@@ -483,9 +481,6 @@ https://github.com/Fiware/dataModels/blob/master/specs/Alert/doc/spec.md
     
 
 ### Devices [/service/devices/zone/]
-
-The datamodel Device is based on Device of Fiware you can check it 
-https://github.com/Fiware/dataModels/blob/master/specs/Device/Device/doc/spec.md
 
 #### Retreive the devices on a zone [GET /service/devices/{idZone}]
 
