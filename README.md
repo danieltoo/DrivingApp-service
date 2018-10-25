@@ -2,9 +2,9 @@
 
 ## Specification
 
-Please take your time to read the specification [here](https://smartsecuritywebservice.docs.apiary.io/).
+Please take your time to read the API specification [here](https://smartsecuritywebservice.docs.apiary.io/).
 
-## Instalation 
+## Installation
 
 ### Clone this repo
 ```
