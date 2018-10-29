@@ -14,6 +14,9 @@ app.route('/alerts/zone/current/:idZone')
 app.route('/alerts/zone/current/hour/:idZone')
 .get(alertsZone.getCurrentHour)
 
+app.route('/alerts/zone/all/:idZone')
+.get(alertsZone.getAll)
+
 app.route('/devices/zone/:idZone')
 .get(devices.getZone)
 
