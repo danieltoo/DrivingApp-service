@@ -72,7 +72,7 @@ exports.getZoneByOwner = async function (req,res) {
 				}
 			})
 	  	}else {
-			res.status(404).send("Zone not found");
+			res.status(404).send([]);
 		}  	
 	});
 } 
