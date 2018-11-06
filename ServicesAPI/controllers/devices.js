@@ -31,7 +31,7 @@ exports.getZone = async function (req,res) {
             })
             
 	  	}else {
-			res.status(404).send([]);
+			res.status(404).send("Zone no found");
 		}  	
 	});
 } 
@@ -68,7 +68,7 @@ exports.getZoneByOwner = async function (req,res) {
 						res.status(500).send(error);
 					})
 				}else {
-					res.status(404).send("User not found");
+					res.status(404).send([]);
 				}
 			})
 	  	}else {
