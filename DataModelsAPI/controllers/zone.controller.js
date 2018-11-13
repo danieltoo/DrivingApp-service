@@ -69,7 +69,7 @@ exports.update = function(req, res){
 			if(result[0] > 0){
 				res.status(200).json(result);
 			}else {
-				res.status(404).json({message: "The entity cannot be updated", error: data});
+				res.status(404).json({message: "The entity cannot be updated", error: result});
 			}
 		})
 	}
