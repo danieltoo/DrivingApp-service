@@ -58,6 +58,7 @@ exports.add = async function (req, res){
 
 exports.update = function(req, res){
 	var body = req.body;
+	console.log(body);
 	if(!isEmpty(body)){ 
 		body["dateModified"] = new Date();
 		zone.update(body, {
