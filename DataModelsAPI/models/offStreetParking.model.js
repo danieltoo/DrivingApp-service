@@ -1,10 +1,11 @@
 
 const Sequelize = require('sequelize');
-
 var sequelize = require('../db/sequelize');
-var Zone = require('./zone.model');
 var locations = require('./functions/locations')
 
+/**
+ * Definition of the parking model 
+ */
 var parking = sequelize.define('offStreetParking', {
 	idOffStreetParking: { 
 		type : Sequelize.STRING(100), 

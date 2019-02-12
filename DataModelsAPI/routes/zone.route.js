@@ -1,8 +1,6 @@
 'use strict';
-
-var express     = require('express');
-var app         = express();
-
+var express = require('express');
+var app = express();
 //Import the controllers
 var controller = require('../controllers/zone.controller');
 

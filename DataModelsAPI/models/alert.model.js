@@ -1,8 +1,9 @@
 const Sequelize = require('sequelize');
-
 var sequelize = require('../db/sequelize');
-var locations = require('./functions/locations');
 
+/**
+ * Definition of the alert model 
+ */
 var alert = sequelize.define('alert', {
 	idAlert: { 
 		type : Sequelize.STRING(100),  

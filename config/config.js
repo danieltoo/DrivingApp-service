@@ -10,7 +10,7 @@ exports.context = 'http://35.185.120.11:1026/v2';
 exports.crate = 'http://35.185.120.11:4200';
 */
 
-// Docker Deployment 
+// Docker Deployment Env varibles
 exports.keyrock = "http://" + process.env.KEYROCK + ":" + process.env.KEYSTONE_PORT
 exports.mysql  = {
   host : process.env.MYSQL_HOST,

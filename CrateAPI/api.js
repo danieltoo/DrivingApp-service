@@ -7,7 +7,9 @@ var config      = require('../config/config'); // get our config file
 // Database configuration - connection with crateDBADMIN
 var crate = require('node-crate');
 crate.connect(config.crate);
-
+/**
+ * Add the routes in /crate endpoint
+ */
 // ROUTES FOR CRATE API
 // ===================================================================
 app.route('/')

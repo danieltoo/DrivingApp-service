@@ -1,10 +1,9 @@
 'use strict';
-
-var express     = require('express');
-var app         = express();
-
+var express = require('express');
+var app = express();
 //Import the controllers
 var controller = require('../controllers/user.controller');
+
 app.route('/user')
     .get(controller.getAll) // /zones?status =  1 || /zones?status=0
     .post(controller.add)  

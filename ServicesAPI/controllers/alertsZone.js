@@ -1,16 +1,14 @@
-
 var Zone = require('../../DataModelsAPI/models/zone.model');
-var cb = require('ocb-sender')
-var ngsi = require('ngsi-parser')
-var fetch = require('node-fetch')
+var cb = require('ocb-sender');
+var ngsi = require('ngsi-parser');
 const { DateTime } = require('luxon');
-var moment  = require('moment-timezone')
 
-var context = require('../../config/config').context
-
+/**
+ * Retrieve the history alerts into the Orion on a specific zone from the orion
+ * @param req
+ * @param res
+ */
 exports.getHistory = async function (req,res) {
-	console.log(req.query.id)
-
     await Zone.findOne({where : { 'idZone': req.params.idZone }})
     .then( async (zone) => {
 	  	if (zone != null){
@@ -24,7 +22,9 @@ exports.getHistory = async function (req,res) {
 			if(req.query.id != undefined)
 				jsonQuery["id"] = req.query.id
 			let queryToCount = ngsi.createQuery(jsonQuery);
-
+			/**
+			 * Retreive the total count of hitory alerts on the zone
+			 */
             await cb.getWithQuery(queryToCount)
 			.then(async (response) => {
 				let off = Number(response["headers"]["_headers"]["fiware-total-count"][0])
@@ -43,7 +43,9 @@ exports.getHistory = async function (req,res) {
 					params.offset = off - 10
 				}
 				let query = ngsi.createQuery(params);
-				console.log(query)
+				/**
+				 * Retreive the las 10 alerts of the history alerts on the zone from the orion
+				 */
 				await cb.getWithQuery(query)
 				.then((result) => {
 					res.status(200).json(result.body.reverse())
@@ -60,14 +62,21 @@ exports.getHistory = async function (req,res) {
 	});
 } 
 
+/**
+ * Retrieve the current last 10 alerts on a specific zone on the day from the orion
+ * @param req
+ * @param res
+ */
 exports.getCurrent = async function (req,res) {
-	console.log(req.query)
     await Zone.findOne({where : { 'idZone': req.params.idZone }})
     .then( async (zone) => {
 	  	if (zone != null){
+			/**
+			 * Use the DateTime to create the limit time
+			 */
 			//var dt = DateTime.utc()
 			//var dt = DateTime.local();
-			var dt = DateTime.local().setZone('America/Mexico_City')
+			var dt = DateTime.local().setZone('America/Mexico_City');
 			let midnight = dt.minus({ days: 1 }).endOf('day');
 			let jsonQuery = {
 				type : "Alert",
@@ -82,13 +91,15 @@ exports.getCurrent = async function (req,res) {
 				jsonQuery["id"] = req.query.id
 
 			let queryToCount = ngsi.createQuery(jsonQuery);
-			console.log(queryToCount)
-
+			
+			/**
+			 * Retrieve the total count of alerts on the zone of the day from the orion
+			 */
             await cb.getWithQuery(queryToCount)
 			.then(async (response) => {
 
 				let count = Number(response["headers"]["_headers"]["fiware-total-count"][0])  
-				
+
 				let jsonQuery2 = {
 					type : "Alert",
 					options : "keyValues",
@@ -111,12 +122,12 @@ exports.getCurrent = async function (req,res) {
 
 				let query = ngsi.createQuery(jsonQuery2);
 
-				console.log(query)
+				/**
+				 * Retreive the current last alerts on the zone of the day from the orion
+				 */
 				await cb.getWithQuery(query)
 				.then((result) => {
-					
 					res.status(200).json(result.body.reverse())
-					
 				})
 				.catch((error) =>{
 					res.status(error.status).send(error);
@@ -132,12 +143,18 @@ exports.getCurrent = async function (req,res) {
 	});
 } 
 
-
+/**
+ * Retrieve the last alerts on the a specific zone of the last hour from the orion
+ * @param req
+ * @param res
+ */
 exports.getCurrentHour = async function (req,res) {
-	console.log("CURRENT HOUR ---------------")
     await Zone.findOne({where : { 'idZone': req.params.idZone }})
     .then( async (zone) => {
 	  	if (zone != null){
+			/**
+			 * Use Date time to create the limit time
+			 */
 			var dtLocal = DateTime.local().setZone('America/Mexico_City');
 			var date = DateTime.utc(
 				dtLocal.year,
@@ -152,9 +169,9 @@ exports.getCurrentHour = async function (req,res) {
 			let jsonQuery = {
 				type : "Alert",
 				options : "count",
-				//georel :"coveredBy",
-				//geometry:"polygon",
-				//coords : zone.location,
+				georel :"coveredBy",
+				geometry:"polygon",
+				coords : zone.location,
 				dateObserved: `>=${midnight}`
 			}
 
@@ -162,8 +179,10 @@ exports.getCurrentHour = async function (req,res) {
 				jsonQuery["id"] = req.query.id
 
 			let queryToCount = ngsi.createQuery(jsonQuery);
-			console.log(queryToCount)
-
+			
+			/**
+			 * Retrieve the total count of alerts on the zone of the last hour
+			 */
             await cb.getWithQuery(queryToCount)
 			.then(async (response) => {
 
@@ -172,9 +191,9 @@ exports.getCurrentHour = async function (req,res) {
 				let jsonQuery2 = {
 					type : "Alert",
 					options : "keyValues",
-					//georel :"coveredBy",
-					//geometry:"polygon",
-					//coords : zone.location,
+					georel :"coveredBy",
+					geometry:"polygon",
+					coords : zone.location,
 					dateObserved: `>=${midnight}`,
 					limit : 10
 				}
@@ -187,7 +206,9 @@ exports.getCurrentHour = async function (req,res) {
 
 				let query = ngsi.createQuery(jsonQuery2);
 
-				console.log(query)
+				/**
+				 * Retrieve the last alerts on the zone of the last hour  from the orion
+				 */
 				await cb.getWithQuery(query)
 				.then((result) => {
 					

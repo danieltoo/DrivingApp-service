@@ -4,7 +4,9 @@ var app         = express();
 var alertsZone = require('../controllers/alertsZone')
 var devices = require('../controllers/devices')
 var functions = require('../controllers/functions')
-
+/**
+ * Routes definition
+ */
 app.route('/alerts/zone/history/:idZone')
 .get(alertsZone.getHistory)
 

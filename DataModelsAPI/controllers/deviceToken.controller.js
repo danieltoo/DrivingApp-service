@@ -2,6 +2,10 @@
 
 var deviceToken= require('../models/deviceToken.model')
 
+/**
+ * Check if the object is empty
+ * @param {object} object 
+ */
 function isEmpty (object) {
     if (object == undefined ) return true;
     if (object == null) return true;
@@ -10,6 +14,11 @@ function isEmpty (object) {
     return false;
 }  
 
+/**
+ * Add a new DeviceToken into the data base
+ * @param {*} req User request
+ * @param {*} res Server response 
+ */
 exports.add = function (req, res){
 	var body = req.body;
 	let type = "DeviceToken";
@@ -28,6 +37,11 @@ exports.add = function (req, res){
 	}
 }
 
+/**
+ * Update a device token 
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.update = function(req, res){
 	var body = req.body;
 	console.log(body)
@@ -55,6 +69,11 @@ exports.update = function(req, res){
 	}
 }
 
+/**
+ * Delete a device token from the data base 
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.delete = function(req, res){
 	deviceToken.update({
 		status : 0,
@@ -76,6 +95,11 @@ exports.delete = function(req, res){
 	})
 }
 
+/**
+ * Retrieve all the device tokens registered
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.getAll = function(req,res){
 	deviceToken.findAll({ where: req.query}).then(result => {
 		res.status(200).json(result);
@@ -85,6 +109,11 @@ exports.getAll = function(req,res){
 	})
 }
 
+/**
+ * Retrieve a specific device token by id
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.getById = function (req, res){
 	console.log(req.params.refDevice)
 	let type = "DeviceToken";

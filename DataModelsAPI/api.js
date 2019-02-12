@@ -1,8 +1,8 @@
-
-var express     = require('express');
-var app         = express();
-
-
+var express = require('express');
+var app = express();
+/**
+ * Add the routes in /api
+ */
 var zoneRoute  					= require('./routes/zone.route');
 var parkingRoute				= require('./routes/offStreetParking.route');
 var roadRoute 					= require('./routes/road.route')
@@ -13,7 +13,6 @@ var user = require('./routes/user.route')
 app.route('/')
 	.get((req, res, next) => {res.json({ message: 'Welcome to DataModels API REST' });
 });
-
 
 app.use(zoneRoute)
 app.use(parkingRoute)

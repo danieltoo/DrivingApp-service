@@ -4,7 +4,10 @@ var road = require('../models/road.model')
 var context = require("./functions/context")
 var triggers = require("./functions/triggers");
 
-
+/**
+ * Check if the object is empty
+ * @param {object} object 
+ */
 function isEmpty (object) {
     if (object == undefined ) return true;
     if (object == null) return true;
@@ -13,6 +16,11 @@ function isEmpty (object) {
     return false;
 }
 
+/**
+ * Add a new road into the data base
+ * @param {*} req User request
+ * @param {*} res Server response 
+ */
 exports.add = async function (req, res){
 	var body = req.body;
 	let type = "Road";
@@ -42,6 +50,11 @@ exports.add = async function (req, res){
 	}
 }
 
+/**
+ * Update a road
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.update = function(req, res){
 	var body = req.body;
 	if(!isEmpty(body)){ 
@@ -64,6 +77,11 @@ exports.update = function(req, res){
 	}
 }
 
+/**
+ * Delete a road from the data base 
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.delete = function(req, res){
 	road.update({
 		status : 0,
@@ -84,12 +102,22 @@ exports.delete = function(req, res){
 	})
 }
 
+/**
+ * Retrieve all the roads registered
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.getAll = function(req,res){
 	road.findAll({ where: req.query}).then(result => {
 		res.status(200).json(result);
 	})
 }
 
+/**
+ * Retrieve a specific roads registered by id
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.getById = function (req, res){
 	road.findById(req.params.idRoad).then((result) => {
 		if(result){

@@ -2,6 +2,11 @@ const { DateTime } = require('luxon');
 var cb = require('ocb-sender')
 var ngsi = require('ngsi-parser')
 
+/**
+ * Retrieve the entities using the query 
+ * @param req
+ * @param res
+ */
 exports.query = async function (req,res) {    
     let query = ngsi.createQuery(req.body);
 	console.log(req.body)
@@ -14,6 +19,9 @@ exports.query = async function (req,res) {
     })
 } 
 
+/**
+ * Determinate if a point is on the zone DEPRECATED
+ */
 exports.pointCampus= function (req,res) {
     let body = req.body;
     let Point = body.point

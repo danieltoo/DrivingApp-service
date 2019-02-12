@@ -1,9 +1,10 @@
 
 const Sequelize = require('sequelize');
-
 var sequelize = require('../db/sequelize');
-var locations = require('./functions/locations')
 
+/**
+ * Definition of the deviceModel model 
+ */
 var deviceModel = sequelize.define('deviceModel', {
 	idDeviceModel: { 
 		type : Sequelize.STRING(100), 

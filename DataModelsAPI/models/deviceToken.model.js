@@ -1,8 +1,10 @@
 
 const Sequelize = require('sequelize');
-
 var sequelize = require('../db/sequelize');
 
+/**
+ * Definition of the DeviceToken model 
+ */
 var DeviceToken = sequelize.define('deviceTokens', {
 	idDeviceToken : { 
 		type : Sequelize.STRING(100), 

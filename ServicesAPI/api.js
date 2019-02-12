@@ -1,8 +1,9 @@
 
 var express     = require('express');
 var app         = express();
-
-
+/**
+ * Add the routes in the endpoint /services
+ */
 var routes = require('./routes/index')
 
 app.route('/')

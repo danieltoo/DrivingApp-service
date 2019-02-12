@@ -2,6 +2,9 @@
 var Sequelize = require('sequelize');
 var sequelize = require('../db/sequelize');
 
+/**
+ * Definition of the SecurityGuard model 
+ */
 var guard = sequelize.define('authUser', {
 	id : { 
 		type : Sequelize.INTEGER, //Sequelize.STRING(100),  

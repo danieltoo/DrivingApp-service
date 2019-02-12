@@ -5,6 +5,10 @@ var Guard = require('../models/securityGuard.model')
 var fetch = require('node-fetch')
 var keyrock = require('../../config/config').keyrock
 
+/**
+ * Check if the object is empty
+ * @param {object} object 
+ */
 function isEmpty (object) {
     if (object == undefined ) return true;
     if (object == null) return true;
@@ -13,6 +17,9 @@ function isEmpty (object) {
     return false;
 }  
 
+/**
+ * Headers used to manipulate the data of the keystone
+ */
 var headers = {
 	"accept": "application/json",
 	"accept-encoding": "gzip, deflate",
@@ -22,10 +29,18 @@ var headers = {
 	"X-Auth-token": "ADMIN"
 }
 
+/**
+ * Add a new user into the data base and the keystone
+ * @param {*} req User request
+ * @param {*} res Server response 
+ */
 exports.add = function (req, res){
 	var body = req.body;
 	let type = "User";
 	body[`id`] = `${type}_${Date.now()}`;
+	/**
+	 * Cut the phone number 
+	 */
 	body.phoneNumber = body.phoneNumber.substring(1, body.phoneNumber.length)
 	if (!isEmpty(body)) {
 
@@ -46,6 +61,9 @@ exports.add = function (req, res){
 			headers: headers,
 			body : JSON.stringify(payload)
 		};
+		/**
+		 * Create a user into the keystone
+		 */
 		fetch(`${keyrock}/v3/users`, options)
 		.then(function(response) {              
 			if(response.status >= 200 && response.status <= 208){
@@ -73,6 +91,11 @@ exports.add = function (req, res){
 	}
 }
 
+/**
+ * Update a road segment
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.update = function(req, res){
 	var body = req.body;
 	if(!isEmpty(body)){ 
@@ -95,6 +118,11 @@ exports.update = function(req, res){
 	}
 }
 
+/**
+ * Delete a road segment from the data base 
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.delete = function(req, res){
 	User.update({
 		status : 0,
@@ -113,6 +141,11 @@ exports.delete = function(req, res){
 	})
 }
 
+/**
+ * Retrieve all the road Segments registered
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.getAll = function(req,res){
 	console.log(req.query)
 	User.findAll({ where: req.query}).then(result => {
@@ -120,6 +153,11 @@ exports.getAll = function(req,res){
 	})
 }
 
+/**
+ * Retrieve a specific Segments registered
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.getById = function (req, res){
 	User.findById(req.params.id).then((result) => {
 		if (result){
@@ -132,6 +170,11 @@ exports.getById = function (req, res){
 	})
 }
 
+/**
+ * Login using the keystone to get a token
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.keyLogin = (req, res) => {
 	var params = req.body;
 	var phoneNumber = params.phoneNumber;
@@ -165,6 +208,9 @@ exports.keyLogin = (req, res) => {
 			headers: headers,
 			body : JSON.stringify(payload)
 		};
+		/**
+		 * Make the request to login in the keystone
+		 */
 		fetch(`${keyrock}/v3/auth/tokens`, options)
 			.then(function(response) {              
 				if(response.status >= 200 && response.status <= 208){
@@ -193,6 +239,11 @@ exports.keyLogin = (req, res) => {
 	}
 } 
 
+/**
+ * Used to make security guar login using the keystone and the Viva data base
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.keyGuardLogin = (req, res) => {
 	var params = req.body;
 	//var phoneNumber = params.phoneNumber;
@@ -225,10 +276,16 @@ exports.keyGuardLogin = (req, res) => {
 			headers: headers,
 			body : JSON.stringify(payload)
 		};
+		/**
+		 * MAke the request to login in the keystone
+		 */
 		fetch(`${keyrock}/v3/auth/tokens`, options)
 			.then(function(response) {              
 				if(response.status >= 200 && response.status <= 208){
 
+					/**
+					 * Use the model Guard that is connected with the viva data base to get the data
+					 */
 					Guard.findOne({where : { email : name}})
 					.then((result) =>{
 						let user = result.get({

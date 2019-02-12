@@ -1,9 +1,10 @@
-
 const Sequelize = require('sequelize');
-
 var sequelize = require('../db/sequelize');
 var locations = require('./functions/locations')
 
+/**
+ * Definition of the zone model 
+ */
 var zone = sequelize.define('zone', {
 	idZone: { 
 		type : Sequelize.STRING(100), 

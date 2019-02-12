@@ -7,7 +7,9 @@ var cors 		= require('cors')
 
 var app = express();
 
-//cofiguración de context
+/**
+ * Orion Context Broker configuration
+ */
 var context = require('./config/config').context;
 var cb = require('ocb-sender')
 	.config(context)
@@ -16,7 +18,6 @@ var dataModelsApi 	= require('./DataModelsAPI/api')
 var crateApi 		= require('./CrateAPI/api')
 var servicesApi = require('./ServicesAPI/api')
 
-//Configurar bodyParser
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use(morgan('dev'));

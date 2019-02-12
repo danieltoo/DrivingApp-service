@@ -3,6 +3,11 @@
 var parking = require('../models/offStreetParking.model');
 var context = require("./functions/context");
 var triggers = require("./functions/triggers");
+
+/**
+ * Check if the object is empty
+ * @param {object} object 
+ */
 function isEmpty (object) {
     if (object == undefined ) return true;
     if (object == null) return true;
@@ -11,6 +16,11 @@ function isEmpty (object) {
     return false;
 }
 
+/**
+ * Add a new parking into the data base
+ * @param {*} req User request
+ * @param {*} res Server response 
+ */
 exports.add = async function (req, res){
 	var body = req.body;
 	let type = "OffStreetParking";
@@ -45,6 +55,11 @@ exports.add = async function (req, res){
 	}
 }
 
+/**
+ * Update a parking
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.update = function(req, res){
 	var body = req.body;
 	if(!isEmpty(body)){ 
@@ -67,6 +82,11 @@ exports.update = function(req, res){
 	}
 }
 
+/**
+ * Delete a parking from the data base 
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.delete = function(req, res){
     parking.update({
 		status : 0,
@@ -87,12 +107,22 @@ exports.delete = function(req, res){
 	})
 }
 
+/**
+ * Retrieve all the parking registered
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.getAll = function(req,res){
 	parking.findAll({ where: req.query}).then(result => {
 		res.status(200).json(result);
 	})
 }
 
+/**
+ * Retrieve a specific the parking registered by id
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.getById = function (req, res){
 	parking.findById(req.params.idParking).then((result) => {
 		if(result){

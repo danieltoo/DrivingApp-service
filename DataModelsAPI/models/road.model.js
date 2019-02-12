@@ -1,8 +1,10 @@
 
 const Sequelize = require('sequelize');
-
 var sequelize = require('../db/sequelize');
 
+/**
+ * Definition of the road model 
+ */
 var road = sequelize.define('road', {
 	idRoad : { 
 		type : Sequelize.STRING(100), 

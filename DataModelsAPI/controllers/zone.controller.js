@@ -4,7 +4,10 @@ var zone = require('../models/zone.model')
 var context = require("./functions/context")
 var triggers = require("./functions/triggers")
 
-
+/**
+ * Check if the object is empty
+ * @param {object} object 
+ */
 function isEmpty (object) {
     if (object == undefined ) return true;
     if (object == null) return true;
@@ -13,6 +16,11 @@ function isEmpty (object) {
     return false;
 }
 
+/**
+ * Add a new zone into the data base
+ * @param {*} req User request
+ * @param {*} res Server response 
+ */
 exports.add = async function (req, res){
 	var body = req.body;
 	console.log(body)
@@ -57,6 +65,11 @@ exports.add = async function (req, res){
 	}
 }
 
+/**
+ * Update a zone
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.update = function(req, res){
 	var body = req.body;
 	if(!isEmpty(body)){ 
@@ -79,6 +92,11 @@ exports.update = function(req, res){
 	}
 }
 
+/**
+ * Delete a zone from the data base 
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.delete = function(req, res){
 
 	zone.update({
@@ -100,6 +118,11 @@ exports.delete = function(req, res){
 	})
 }
 
+/**
+ * Retrieve all the zones registered
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.getAll = function(req,res){
 	zone.findAll({ where: req.query}).then(result => {
 		var temp = [];
@@ -115,6 +138,11 @@ exports.getAll = function(req,res){
 	})
 }
 
+/**
+ * Retrieve a specific zone registered by id
+ * @param {*} req User request
+ * @param {*} res Server response
+ */
 exports.getById = function (req, res){
 	zone.findById(req.params.idZone).then((result) => {
 		if(result){

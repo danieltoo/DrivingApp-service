@@ -1,5 +1,8 @@
 
-
+/**
+ * Convert a string of coordinates to array
+ * @param {string} location 
+ */
 exports.getPoly = (location)  => {
     location = location.split(";")
     for( let item in location){
@@ -10,7 +13,10 @@ exports.getPoly = (location)  => {
     return location
 }
 
-
+/**
+ * Convert the simple location string to array
+ * @param {string} location
+ */
 exports.getPoint = (location)  => {
     location = location.split(",")
     location[0] = Number(location[0]) 

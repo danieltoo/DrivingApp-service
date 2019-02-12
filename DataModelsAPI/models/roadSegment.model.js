@@ -1,10 +1,11 @@
 
 const Sequelize = require('sequelize');
-
 var sequelize = require('../db/sequelize');
 var locations = require('./functions/locations')
 
-
+/**
+ * Definition of the roadSegment model 
+ */
 var roadSegment = sequelize.define('roadSegment', {
 	idRoadSegment : { 
 		type : Sequelize.STRING(100), 

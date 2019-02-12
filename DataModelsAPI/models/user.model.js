@@ -2,6 +2,9 @@
 const Sequelize = require('sequelize');
 var sequelize = require('../db/sequelize');
 
+/**
+ * Definition of the User model 
+ */
 var user = sequelize.define('mobileUser', {
 	id : { 
 		type : Sequelize.STRING(100), 
